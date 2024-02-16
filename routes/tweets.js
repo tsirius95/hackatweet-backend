@@ -81,8 +81,8 @@ router.post('/like', (req, res) => {
     .then(userData => {
         Tweet.updateOne({_id :req.body.idTweet}, {like: [...oldLike, userData._id]})
         .then(() => {
-            Tweet.find().then(data => {
-                res.json({ tweets: data });
+            Tweet.find({_id :req.body.idTweet}).then(data => {
+                res.json({ tweet: data });
             });
         });
     });
@@ -92,7 +92,7 @@ router.delete('/:idTweet', (req, res) => {
     Tweet.deleteOne({_id :req.params.idTweet})
     .then(() => {
         Tweet.find().then(data => {
-            res.json({ tweets: data });
+            res.json({ result: true });
         });
     });
 });
